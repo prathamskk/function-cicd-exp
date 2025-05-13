@@ -8,11 +8,13 @@ This repository contains multiple Google Cloud Functions with automated CI/CD us
    - Simple HTTP function that returns a greeting
    - Endpoint: `/hello_world`
    - Deployment config: `functions/hello_world/deploy.yaml`
+   - Runtime: Python 3.11
 
 2. **Greeting Function**
    - HTTP function that returns a friendly welcome message
    - Endpoint: `/greeting`
    - Deployment config: `functions/greeting/deploy.yaml`
+   - Runtime: Python 3.11
 
 ## Setup
 
@@ -37,6 +39,10 @@ This repository contains multiple Google Cloud Functions with automated CI/CD us
      --member="serviceAccount:github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
      --role="roles/cloudbuild.builds.builder"
 
+   gcloud projects add-iam-policy-binding $PROJECT_ID \
+     --member="serviceAccount:github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
+     --role="roles/logging.logWriter"
+
    # Create and download the key
    gcloud iam service-accounts keys create key.json \
      --iam-account=github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com
@@ -55,14 +61,25 @@ The GitHub Actions workflow (`/.github/workflows/deploy.yml`) automatically:
 
 ## Local Development
 
-1. Install dependencies:
+1. Install dependencies for each function:
    ```bash
+   # For hello_world function
+   cd functions/hello_world
+   pip install -r requirements.txt
+
+   # For greeting function
+   cd functions/greeting
    pip install -r requirements.txt
    ```
 
 2. Run functions locally:
    ```bash
+   # For hello_world function
+   cd functions/hello_world
    functions-framework --target hello_world --debug
+
+   # For greeting function
+   cd functions/greeting
    functions-framework --target greeting --debug
    ```
 

@@ -6,7 +6,7 @@ steps:
   - 'deploy'
   - 'hello_world'
   - '--gen2'
-  - '--runtime=python39'
+  - '--runtime=python311'
   - '--region=us-central1'
   - '--source=./functions/hello_world'
   - '--entry-point=hello_world'
