@@ -12,4 +12,4 @@ def greeting(request):
         Response object using `make_response`
         <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
     """
-    return jsonify({"message": "Welcome to our service! Have a great dayy!"}) 
+    return jsonify({"message": "Welcome to our service! Have a great day!"}) 
