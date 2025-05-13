@@ -1,0 +1,17 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+  - 'functions'
+  - 'deploy'
+  - 'greeting'
+  - '--gen2'
+  - '--runtime=python39'
+  - '--region=us-central1'
+  - '--source=./functions/greeting'
+  - '--entry-point=greeting'
+  - '--trigger-http'
+  - '--allow-unauthenticated'
+
+options:
+  logging: CLOUD_LOGGING_ONLY 
