@@ -57,7 +57,7 @@ This repository contains multiple Google Cloud Functions with automated CI/CD us
 The GitHub Actions workflow (`/.github/workflows/deploy.yml`) automatically:
 1. Detects which function's code has changed
 2. Deploys only the changed function(s)
-3. Uses separate deployment configurations for each function
+3. Uses service account authentication for secure deployment
 
 ## Local Development
 

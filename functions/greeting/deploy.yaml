@@ -5,6 +5,7 @@ steps:
   - 'functions'
   - 'deploy'
   - 'greeting'
+  - '--no-gen2'
   - '--runtime=python311'
   - '--region=us-central1'
   - '--source=./functions/greeting'

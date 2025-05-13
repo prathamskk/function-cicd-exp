@@ -5,6 +5,7 @@ steps:
   - 'functions'
   - 'deploy'
   - 'hello_world'
+  - '--no-gen2'
   - '--runtime=python311'
   - '--region=us-central1'
   - '--source=./functions/hello_world'
