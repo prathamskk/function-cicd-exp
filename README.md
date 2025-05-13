@@ -22,14 +22,29 @@ This repository contains multiple Google Cloud Functions with automated CI/CD us
    gcloud services enable cloudbuild.googleapis.com
    ```
 
-2. Set up GitHub Secrets:
-   - `GCP_PROJECT_ID`: Your Google Cloud Project ID
-   - `GCP_SA_KEY`: Your Google Cloud Service Account key (JSON format)
+2. Create a Service Account and download the key:
+   ```bash
+   # Create a service account
+   gcloud iam service-accounts create github-actions-deployer \
+     --display-name="GitHub Actions Deployer"
 
-3. Create a Service Account with the following roles:
-   - Cloud Functions Developer
-   - Cloud Build Service Account
-   - Service Account User
+   # Grant necessary roles
+   gcloud projects add-iam-policy-binding $PROJECT_ID \
+     --member="serviceAccount:github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
+     --role="roles/cloudfunctions.developer"
+   
+   gcloud projects add-iam-policy-binding $PROJECT_ID \
+     --member="serviceAccount:github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
+     --role="roles/cloudbuild.builds.builder"
+
+   # Create and download the key
+   gcloud iam service-accounts keys create key.json \
+     --iam-account=github-actions-deployer@$PROJECT_ID.iam.gserviceaccount.com
+   ```
+
+3. Set up GitHub Secrets:
+   - `GCP_PROJECT_ID`: Your Google Cloud Project ID
+   - `GCP_SA_KEY`: The entire contents of the `key.json` file you downloaded
 
 ## How it Works
 
